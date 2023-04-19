@@ -1,10 +1,25 @@
+//
+//app.get("/", (_, res) => res.send("in / of   express!"));
+////app.get('/',(req,res) => {
+////    res.render('/',{titlex:' about page title'});   
+////  }); 
+////
+
+//app.get('/about',(req,res) => {
+//   //res.render('c:\\web\\a4\\vp4\\views\\about',{titlex:'about page title'}); 
+//   res.render('\about',{titlex:'about      cccontext  page titlex'});  
+//  });  
+//app.get("/message", (_, res) => res.send("in message Hello from express!"));
+
 import fs from 'node:fs/promises'
 import express from 'express'
+import path from 'path'
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 5173
 const base = process.env.BASE || '/'
+const __dirname = path.resolve(path.dirname(''));
 
 // Cached production assets
 const templateHtml = isProduction
@@ -34,12 +49,25 @@ if (!isProduction) {
   app.use(base, sirv('./dist/client', { extensions: [] }))
 }
 
+app.get("/zzz", (_, res) => res.send("in message Hello from express!"));   
+
+app.get('/about',(req,res) => {
+  //res.render('c:\\web\\a4\\vp4\\views\\about',{titlex:'about page title'}); 
+  //res.render('\about',{titlex:'about      cccontext  page titlex'});  
+  res.sendFile('./src/about/index.html',{root: __dirname});
+ });  
+
+
+
+
+
 // Serve HTML
 app.use('*', async (req, res) => {
   try {
-    const url = req.originalUrl.replace(base, '')
+   const url = req.originalUrl.replace(base, '')
 
     let template
+
     let render
     if (!isProduction) {
       // Always read fresh template in development
@@ -64,6 +92,8 @@ app.use('*', async (req, res) => {
     res.status(500).end(e.stack)
   }
 })
+
+
 
 // Start http server
 app.listen(port, () => {
