@@ -82,6 +82,17 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+#h4css {color:green;}
+.divPic {margin: 0 auto; width: 401px; height: 300px; 
+         border: 16px solid red;}
+#h3text {color: purple;}
+
+
+
+
+
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
