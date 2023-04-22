@@ -21,14 +21,19 @@ const port = process.env.PORT || 5173
 const base = process.env.BASE || '/'
 const __dirname = path.resolve(path.dirname(''));
 
+console.log("in server preview 1");
+console.log(" __dirname  = ",__dirname);
+// console.log("distoutDir = ",distoutDir);
+
 // Cached production assets
 const templateHtml = isProduction
-  ? await fs.readFile('./dist/client/index.html', 'utf-8')
+  ? await fs.readFile('./dist/client/src/index.html', 'utf-8')    //   ? await fs.readFile('./dist/client/index.html', 'utf-8')
   : ''
+console.log("in server preview 2"); 
 const ssrManifest = isProduction
   ? await fs.readFile('./dist/client/ssr-manifest.json', 'utf-8')
   : undefined
-
+  console.log("in server preview 3"); 
 // Create http server
 const app = express()
 
@@ -51,11 +56,11 @@ if (!isProduction) {
 
 app.get("/zzz", (_, res) => res.send("in message Hello from express!"));   
 
-app.get('/about',(req,res) => {
-  //res.render('c:\\web\\a4\\vp4\\views\\about',{titlex:'about page title'}); 
-  //res.render('\about',{titlex:'about      cccontext  page titlex'});  
-  res.sendFile('./src/about/index.html',{root: __dirname});
- });  
+//app.get('/about',(req,res) => {
+//  //res.render('c:\\web\\a4\\vp4\\views\\about',{titlex:'about page title'}); 
+//  //res.render('\about',{titlex:'about      cccontext  page titlex'});  
+//  res.sendFile('./src/about/index.html',{root: __dirname});
+// });  
 
 
 
@@ -63,6 +68,7 @@ app.get('/about',(req,res) => {
 
 // Serve HTML
 app.use('*', async (req, res) => {
+  console.log("inside app.use1");
   try {
    const url = req.originalUrl.replace(base, '')
 
@@ -71,9 +77,12 @@ app.use('*', async (req, res) => {
     let render
     if (!isProduction) {
       // Always read fresh template in development
-      template = await fs.readFile('./index.html', 'utf-8')
+      console.log("inside app.use2");
+      template = await fs.readFile('./src/index.html', 'utf-8')   // template = await fs.readFile('./index.html', 'utf-8')
+      console.log("inside app.use3");
       template = await vite.transformIndexHtml(url, template)
-      render = (await vite.ssrLoadModule('/src/entry-server.js')).render
+      render = (await vite.ssrLoadModule('/src/entry-server.js')).render  // render = (await vite.ssrLoadModule('/src/entry-server.js')).render
+      console.log("inside app.use4");
     } else {
       template = templateHtml
       render = (await import('./dist/server/entry-server.js')).render
