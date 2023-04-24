@@ -33,7 +33,7 @@ console.log("in server preview 2");
 const ssrManifest = isProduction
   ? await fs.readFile('./dist/client/ssr-manifest.json', 'utf-8')
   : undefined
-  console.log("in server  preview 3"); 
+  console.log("in     server  preview 3"); 
 // Create http server
 const app = express()
 
