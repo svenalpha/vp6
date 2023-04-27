@@ -14,7 +14,7 @@ const outDir = resolve(__dirname,'/dist');// "c:/web/a6/vp6";   // dist/server
 
 
 export default defineConfig({
-    //base: '/vp6/',
+    base: '/vp6/',
     root,
     build: {                     
       outDir,  //outDir: 'vp6/dist/',                              
