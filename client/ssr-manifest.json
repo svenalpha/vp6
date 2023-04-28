@@ -1,0 +1,12 @@
+{
+  "\u0000vite/modulepreload-polyfill": [
+  ],
+  "index.html": [
+  ],
+  "src/counter.js": [
+  ],
+  "src/entry-client.js": [
+  ],
+  "src/style.css": [
+  ]
+}
