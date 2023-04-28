@@ -28,7 +28,7 @@ console.log(" __dirname  = ",__dirname);
 console.log("in server preview 1a"); 
 // Cached production assets
 const templateHtml = isProduction
-? await fs.readFile('./dist/client/src/index.html', 'utf-8')     //     ? await fs.readFile('./dist/client/src/index.html', 'utf-8')    //   ? await fs.readFile('./dist/client/index.html', 'utf-8')
+? await fs.readFile('./dist/client/index.html', 'utf-8')     //     ? await fs.readFile('./dist/client/src/index.html', 'utf-8')    //   ? await fs.readFile('./dist/client/index.html', 'utf-8')
   : ''
 console.log("in server preview 2"); 
 const ssrManifest = isProduction
@@ -79,7 +79,7 @@ app.use('*', async (req, res) => {
     if (!isProduction) {
       // Always read fresh template in development
       console.log("inside app.use2");
-      template = await fs.readFile('src/index.html', 'utf-8')   // template = await fs.readFile('./index.html', 'utf-8')
+      template = await fs.readFile('index.html', 'utf-8')   // template = await fs.readFile('./index.html', 'utf-8')
       console.log("inside app.use3");
       template = await vite.transformIndexHtml(url, template)
       render = (await vite.ssrLoadModule('./src/entry-server.js')).render  // render = (await vite.ssrLoadModule('/src/entry-server.js')).render
